@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Cormorant Garamond', 'Georgia', serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+
+  --color-ink-950: #0c0708;
+  --color-ink-900: #120b0c;
+  --color-ink-800: #1c1113;
+  --color-ink-700: #2a191c;
+  --color-ink-600: #3d262a;
+  --color-parchment-100: #f3e9d2;
+  --color-parchment-200: #e6d7b5;
+  --color-parchment-400: #c9b58a;
+  --color-gold-300: #e3c27a;
+  --color-gold-400: #c9a24f;
+  --color-gold-600: #8f6d2a;
+  --color-wine-500: #7a1f2b;
+  --color-wine-700: #4d1119;
+  --color-moss-500: #5b6b3a;
+
+  --shadow-glow: 0 0 0 1px rgb(201 162 79 / 0.35), 0 0 24px rgb(201 162 79 / 0.25);
+  --animate-flicker: flicker 4s ease-in-out infinite;
+
+  @keyframes flicker {
+    0%, 100% { opacity: 0.85; }
+    45% { opacity: 1; }
+    55% { opacity: 0.7; }
+  }
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink-900);
+  color: var(--color-parchment-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-300);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
