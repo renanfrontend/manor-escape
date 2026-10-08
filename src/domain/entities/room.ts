@@ -1,6 +1,9 @@
 import type { HotspotId, ItemId, PuzzleId, RoomId } from './ids'
 
-/** Percentage-based bounding box so scenes stay responsive. */
+/**
+ * Percentage-based bounding box so scenes stay responsive. Relative to the scene stage only:
+ * the room title and description render above it, so any 0–100 value is safe.
+ */
 export interface HotspotArea {
   readonly x: number
   readonly y: number
