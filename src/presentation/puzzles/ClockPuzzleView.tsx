@@ -38,14 +38,14 @@ export const ClockPuzzleView = ({ onSubmit, failed }: PuzzleViewProps<'clock'>) 
         <motion.line
           x1="100" y1="100" x2="100" y2="52"
           stroke="#120b0c" strokeWidth="6" strokeLinecap="round"
-          style={{ originX: '100px', originY: '100px' }}
+          style={{ originX: 0.5, originY: 1 }}
           animate={{ rotate: hourAngle }}
           transition={{ type: 'spring', stiffness: 120, damping: 14 }}
         />
         <motion.line
           x1="100" y1="100" x2="100" y2="30"
           stroke="#7a1f2b" strokeWidth="4" strokeLinecap="round"
-          style={{ originX: '100px', originY: '100px' }}
+          style={{ originX: 0.5, originY: 1 }}
           animate={{ rotate: minuteAngle }}
           transition={{ type: 'spring', stiffness: 120, damping: 14 }}
         />
