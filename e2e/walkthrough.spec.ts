@@ -26,6 +26,30 @@ test.describe('Manor Escape', () => {
     await expect(page.getByTestId('room-foyer')).toBeVisible()
   })
 
+  test('clock hands stay inside the dial when turned', async ({ page }) => {
+    await page.getByTestId('hotspot-foyer-clock').click()
+    await setClock(page, 2, 35)
+    const dial = page.getByRole('img', { name: /Relógio marcando/ })
+    const hands = dial.locator('line')
+    await expect(hands).toHaveCount(2)
+    // As molas do Framer Motion levam um instante para assentar.
+    await expect
+      .poll(async () => {
+        const area = await dial.boundingBox()
+        const boxes = await Promise.all([0, 1].map((i) => hands.nth(i).boundingBox()))
+        if (!area || boxes.some((box) => !box)) return false
+        return boxes.every(
+          (box) =>
+            box !== null &&
+            box.x >= area.x - 1 &&
+            box.y >= area.y - 1 &&
+            box.x + box.width <= area.x + area.width + 1 &&
+            box.y + box.height <= area.y + area.height + 1,
+        )
+      })
+      .toBe(true)
+  })
+
   test('rejects wrong answers and charges for hints', async ({ page }) => {
     await page.getByTestId('hotspot-foyer-clock').click()
     await page.getByTestId('clock-submit').click()
