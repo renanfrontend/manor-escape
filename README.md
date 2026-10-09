@@ -78,6 +78,10 @@ Para o E2E com um Chromium já instalado: `PW_CHROMIUM_PATH=/caminho/para/chromi
 
 O workflow em `.github/workflows/ci.yml` roda typecheck, lint, testes unitários e E2E em cada push/PR, e publica a build no GitHub Pages a partir da `main` (`VITE_BASE_PATH` é definido automaticamente com o nome do repositório).
 
+## App Android
+
+O jogo também vira um app Android (Capacitor), com o APK gerado na nuvem pelo fluxo **Android APK** do GitHub Actions. Como instalar, gerar versões novas e publicar na Play Store: [docs/android.md](docs/android.md).
+
 ## Autoria
 
 Concepção, narrativa, enigmas, interface, cena 3D do cofre e textos por **Renan Augusto dos Santos** ([renanaugusto.com.br](https://renanaugusto.com.br) · [contato@renanaugusto.com.br](mailto:contato@renanaugusto.com.br)). A Mansão Blackwood e seus personagens são fictícios. As fontes Cormorant Garamond e IBM Plex Sans (SIL Open Font License) vêm do Google Fonts.
