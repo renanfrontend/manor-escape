@@ -8,7 +8,7 @@
 
 ![Enigma do relógio de pêndulo no Manor Escape, com o mostrador em algarismos romanos, o ajuste de horas e minutos e o botão de dica](docs/screenshot.png)
 
-Um escape room vitoriano jogável no navegador. Três cômodos da Mansão Blackwood, quatro enigmas encadeados, um cofre em 3D e trinta minutos no relógio.
+Um escape room vitoriano jogável no navegador. Seis cômodos da Mansão Blackwood, onze enigmas encadeados (cifras, anagramas, escrita em espelho, proporções de Da Vinci, criptex, Fibonacci, astronomia), um cofre em 3D e quarenta e cinco minutos no relógio.
 
 Projeto de estudo: React 19 + TypeScript estrito, orquestração de fluxo com XState, estado de UI com Zustand, animações com Framer Motion, cena 3D com react-three-fiber e testes com Vitest + Playwright, organizado em Clean Architecture.
 
@@ -16,9 +16,13 @@ Projeto de estudo: React 19 + TypeScript estrito, orquestração de fluxo com XS
 
 1. **Saguão:** inspecione o retrato, ajuste o relógio de pêndulo para o horário certo e vasculhe o vaso.
 2. **Biblioteca:** reordene os volumes na ordem em que foram escritos, decifre a carta (cifra de César) e encontre a chave de ferro.
-3. **Escritório:** leia a página rasgada, monte a combinação no cofre 3D e saia pela porta dos fundos.
+3. **Escritório:** leia a página rasgada, monte a combinação no cofre 3D e descubra a passagem secreta atrás da estante.
+4. **Ateliê (Da Vinci):** decifre a escrita em espelho, aplique as proporções do Homem Vitruviano e apague as lanternas (puzzle de luzes) para abrir a cripta.
+5. **Cripta (Dan Brown):** reorganize as letras do nome na lápide (anagrama) e gire as rodas do criptex até a palavra do legado.
+6. **Observatório:** continue a sequência de Fibonacci, alinhe os planetas na ordem do sistema solar e use a chave estelar na porta final.
 
-Cada dica custa 60 segundos. São 3 por partida. O progresso é salvo automaticamente: recarregar a página não zera a fuga.
+Alguns enigmas exigem um objeto encontrado antes (lente, anel, bússola): sem ele o mecanismo não responde. Cada dica custa 60 segundos. São 5 por partida. O progresso é salvo automaticamente: recarregar a página não zera a fuga.
+
 
 ## Stack
 
@@ -103,6 +107,6 @@ Os termos completos estão em [LICENSE](LICENSE). Dependências e fontes mantêm
 
 ## 🇺🇸 English
 
-Manor Escape is a Victorian escape room you play in the browser, by **Renan Augusto dos Santos**: three rooms of Blackwood Manor, four chained puzzles, a 3D safe and thirty minutes on the clock. Built with React 19, strict TypeScript, XState 5, Zustand, Framer Motion, react-three-fiber, Vitest and Playwright, organized in Clean Architecture. Each hint costs 60 seconds and progress is saved automatically.
+Manor Escape is a Victorian escape room you play in the browser, by **Renan Augusto dos Santos**: six rooms of Blackwood Manor, eleven chained puzzles (ciphers, anagrams, mirror writing, Da Vinci proportions, a cryptex, Fibonacci, astronomy), a 3D safe and forty-five minutes on the clock. Built with React 19, strict TypeScript, XState 5, Zustand, Framer Motion, react-three-fiber, Vitest and Playwright, organized in Clean Architecture. Each hint costs 60 seconds (5 per run) and progress is saved automatically.
 
 © 2026 Renan Augusto dos Santos. All rights reserved. This is not open source. The source is public for portfolio evaluation only; copying, modifying, porting, redistributing, commercial use, presenting it as your own work or using it to train AI models requires written permission. See [LICENSE](LICENSE). Earlier versions were released under the MIT license and remain so for anyone who obtained them at the time. Contact: [contato@renanaugusto.com.br](mailto:contato@renanaugusto.com.br) · [renanaugusto.com.br](https://renanaugusto.com.br).

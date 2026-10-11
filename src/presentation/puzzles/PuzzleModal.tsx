@@ -6,6 +6,8 @@ import { useUiStore } from '@/composition'
 import { Button } from '@/presentation/components/Button'
 import { Modal } from '@/presentation/components/Modal'
 import { ClockPuzzleView } from './ClockPuzzleView'
+import { CryptexPuzzleView } from './CryptexPuzzleView'
+import { LightsPuzzleView } from './LightsPuzzleView'
 import { SequencePuzzleView } from './SequencePuzzleView'
 import { TextPuzzleView } from './TextPuzzleView'
 
@@ -126,6 +128,10 @@ const PuzzleBody = ({ puzzle, onSubmit, failed }: PuzzleBodyProps) => {
       return <SequencePuzzleView puzzle={puzzle} onSubmit={onSubmit} failed={failed} />
     case 'text':
       return <TextPuzzleView puzzle={puzzle} onSubmit={onSubmit} failed={failed} />
+    case 'lights':
+      return <LightsPuzzleView puzzle={puzzle} onSubmit={onSubmit} failed={failed} />
+    case 'cryptex':
+      return <CryptexPuzzleView puzzle={puzzle} onSubmit={onSubmit} failed={failed} />
     case 'combination':
       return (
         <Suspense fallback={<p className="py-10 text-center text-parchment-400">Carregando o cofre…</p>}>

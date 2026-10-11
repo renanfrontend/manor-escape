@@ -12,7 +12,7 @@ export const Hud = () => {
 
   return (
     <header className="flex flex-wrap items-center justify-between gap-3 border-b border-gold-600/30 px-4 py-3 sm:px-6">
-      <nav aria-label="Cômodos" className="flex gap-1">
+      <nav aria-label="Cômodos" className="flex flex-wrap gap-1">
         {ROOM_IDS.map((id) => {
           const isUnlocked = unlocked.includes(id)
           const isCurrent = id === room
