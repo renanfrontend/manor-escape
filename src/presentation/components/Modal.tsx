@@ -64,7 +64,7 @@ export const Modal = ({ title, onClose, children, wide = false, testId }: ModalP
         aria-modal="true"
         aria-labelledby={titleId}
         data-testid={testId}
-        className={`relative max-h-[90vh] w-full overflow-y-auto rounded-lg border border-gold-600/50 bg-ink-800 p-6 shadow-2xl ${wide ? 'max-w-3xl' : 'max-w-xl'}`}
+        className={`relative max-h-[90dvh] w-full overflow-y-auto overscroll-contain rounded-lg border border-gold-600/50 bg-ink-800 p-4 shadow-2xl sm:p-6 ${wide ? 'max-w-3xl' : 'max-w-xl'}`}
         initial={reducedMotion ? false : { y: 24, scale: 0.98, opacity: 0 }}
         animate={{ y: 0, scale: 1, opacity: 1 }}
         exit={{ y: 12, opacity: 0 }}
