@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import { Button } from '@/presentation/components/Button'
+import { ErrorBoundary } from '@/presentation/components/ErrorBoundary'
 import { SafeDial } from '@/presentation/three/SafeDial'
+import { SafeDialFallback } from '@/presentation/three/SafeDialFallback'
+import { supportsWebGL } from '@/presentation/three/webgl'
 import { FailureNote } from './FailureNote'
 import type { PuzzleViewProps } from './types'
 
 export const CombinationPuzzleView = ({ puzzle, onSubmit, failed }: PuzzleViewProps<'combination'>) => {
   const steps = puzzle.dialMax + 1
   const length = puzzle.solution.length
+  const [webgl] = useState(supportsWebGL)
   const [value, setValue] = useState(0)
   const [entered, setEntered] = useState<number[]>([])
   const complete = entered.length === length
@@ -20,8 +24,13 @@ export const CombinationPuzzleView = ({ puzzle, onSubmit, failed }: PuzzleViewPr
 
   return (
     <div className="grid gap-5 sm:grid-cols-[1.2fr_1fr]">
-      <div className="aspect-square overflow-hidden rounded-md border border-gold-600/40" data-testid="safe-canvas">
-        <SafeDial steps={steps} value={value} onChange={setValue} />
+      <div
+        className="mx-auto aspect-square max-h-[36dvh] w-full overflow-hidden rounded-md border border-gold-600/40 sm:max-h-none"
+        data-testid="safe-canvas"
+      >
+        <ErrorBoundary fallback={<SafeDialFallback steps={steps} value={value} onChange={setValue} />}>
+          {webgl ? <SafeDial steps={steps} value={value} onChange={setValue} /> : <SafeDialFallback steps={steps} value={value} onChange={setValue} />}
+        </ErrorBoundary>
       </div>
 
       <div className="flex flex-col gap-4">
