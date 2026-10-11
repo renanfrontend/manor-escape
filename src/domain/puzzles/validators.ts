@@ -1,4 +1,5 @@
 import type { AnswerOf, ClockAnswer, Puzzle } from '../entities/puzzle'
+import { allDark, replayPresses } from '../services/lights'
 import { normalizeAnswer } from '../services/normalize'
 
 const sameSequence = <T>(a: readonly T[], b: readonly T[]): boolean =>
@@ -28,8 +29,19 @@ export const validateAnswer = <P extends Puzzle>(puzzle: P, answer: AnswerOf<P>)
       )
     case 'sequence':
       return Array.isArray(candidate) && sameSequence(definition.solution, candidate as readonly string[])
-    case 'text':
-      return typeof candidate === 'string' && normalizeAnswer(candidate) === normalizeAnswer(definition.solution)
+    case 'text': {
+      if (typeof candidate !== 'string') return false
+      const given = normalizeAnswer(candidate)
+      return [definition.solution, ...(definition.accept ?? [])].some((option) => normalizeAnswer(option) === given)
+    }
+    case 'lights':
+      return (
+        Array.isArray(candidate) &&
+        candidate.every((press) => Number.isInteger(press)) &&
+        allDark(replayPresses(definition.initial, definition.size, candidate as readonly number[]))
+      )
+    case 'cryptex':
+      return typeof candidate === 'string' && candidate.trim().toUpperCase() === definition.solution
     case 'combination':
       return Array.isArray(candidate) && sameSequence(definition.solution, candidate as readonly number[])
   }

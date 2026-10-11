@@ -42,7 +42,43 @@ export const ITEMS: Readonly<Record<ItemId, Item>> = {
   'master-key': {
     id: 'master-key',
     name: 'Chave mestra',
-    description: 'A única chave capaz de abrir a porta dos fundos da mansão.',
+    description: 'Fria e sem dentes à vista. Serve para a passagem secreta atrás do cofre.',
     glyph: '🔐',
+  },
+  'brass-lens': {
+    id: 'brass-lens',
+    name: 'Lente de latão',
+    description: 'Guardada no caderno do mestre. Faz a luz comum obedecer.',
+    glyph: '🔍',
+  },
+  'golden-compass': {
+    id: 'golden-compass',
+    name: 'Compasso de ouro',
+    description: 'As duas pontas ainda desenham um círculo perfeito.',
+    glyph: '🧭',
+  },
+  'crypt-key': {
+    id: 'crypt-key',
+    name: 'Chave da cripta',
+    description: 'Úmida e escura. Cheira a pedra e a cera.',
+    glyph: '🗝️',
+  },
+  'silver-ring': {
+    id: 'silver-ring',
+    name: 'Anel de prata',
+    description: 'Gravado por dentro com duas letras: E. B.',
+    glyph: '💍',
+  },
+  'observatory-key': {
+    id: 'observatory-key',
+    name: 'Chave do observatório',
+    description: 'Fina como um ponteiro. Abre a escada em caracol.',
+    glyph: '🔑',
+  },
+  'star-key': {
+    id: 'star-key',
+    name: 'Chave das estrelas',
+    description: 'Uma estrela de oito pontas em latão. Só pode abrir uma coisa.',
+    glyph: '⭐',
   },
 }

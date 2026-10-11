@@ -1,10 +1,34 @@
-export const ROOM_IDS = ['foyer', 'library', 'study'] as const
+export const ROOM_IDS = ['foyer', 'library', 'study', 'atelier', 'crypt', 'observatory'] as const
 export type RoomId = (typeof ROOM_IDS)[number]
 
-export const ITEM_IDS = ['bronze-key', 'crumpled-note', 'torn-page', 'iron-key', 'master-key'] as const
+export const ITEM_IDS = [
+  'bronze-key',
+  'crumpled-note',
+  'torn-page',
+  'iron-key',
+  'master-key',
+  'brass-lens',
+  'golden-compass',
+  'crypt-key',
+  'silver-ring',
+  'observatory-key',
+  'star-key',
+] as const
 export type ItemId = (typeof ITEM_IDS)[number]
 
-export const PUZZLE_IDS = ['clock', 'bookshelf', 'cipher', 'safe'] as const
+export const PUZZLE_IDS = [
+  'clock',
+  'bookshelf',
+  'cipher',
+  'safe',
+  'vitruvian',
+  'mirror',
+  'lanterns',
+  'tomb',
+  'cryptex',
+  'fibonacci',
+  'planets',
+] as const
 export type PuzzleId = (typeof PUZZLE_IDS)[number]
 
 export type HotspotId =
@@ -18,7 +42,20 @@ export type HotspotId =
   | 'library-study-door'
   | 'study-desk'
   | 'study-safe'
-  | 'study-exit-door'
+  | 'study-secret-door'
+  | 'atelier-board'
+  | 'atelier-vitruvian'
+  | 'atelier-codex'
+  | 'atelier-lanterns'
+  | 'atelier-crypt-door'
+  | 'crypt-poem'
+  | 'crypt-tomb'
+  | 'crypt-cryptex'
+  | 'crypt-stairs'
+  | 'observatory-spiral'
+  | 'observatory-astrolabe'
+  | 'observatory-planets'
+  | 'observatory-exit-door'
 
 export const isRoomId = (value: string): value is RoomId => (ROOM_IDS as readonly string[]).includes(value)
 export const isItemId = (value: string): value is ItemId => (ITEM_IDS as readonly string[]).includes(value)

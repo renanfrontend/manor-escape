@@ -1,5 +1,6 @@
 import { assign, fromCallback, setup } from 'xstate'
 import {
+  PUZZLE_IDS,
   getPuzzle,
   validateAnswer,
   type AnswerOf,
@@ -13,8 +14,8 @@ import {
 } from '@/domain'
 
 export const GAME_RULES = {
-  timeLimitSeconds: 30 * 60,
-  maxHints: 3,
+  timeLimitSeconds: 45 * 60,
+  maxHints: 5,
   hintPenaltySeconds: 60,
 } as const
 
@@ -45,7 +46,7 @@ export type GameEvent =
   | { type: 'USE_HINT'; puzzleId: PuzzleId }
   | { type: 'RESET' }
 
-const EMPTY_HINTS: Readonly<Record<PuzzleId, number>> = { clock: 0, bookshelf: 0, cipher: 0, safe: 0 }
+const EMPTY_HINTS = Object.fromEntries(PUZZLE_IDS.map((id) => [id, 0])) as Readonly<Record<PuzzleId, number>>
 
 export const initialContext: GameContext = {
   room: 'foyer',
@@ -92,12 +93,14 @@ export const gameMachine = setup({
       return validateAnswer(puzzle, params.answer as AnswerOf<typeof puzzle>)
     },
     canPassDoor: ({ context }, params: { hotspot: DoorHotspot }) =>
+      canInteract(context, params.hotspot) &&
       params.hotspot.target !== 'exit' &&
       (context.unlockedRooms.includes(params.hotspot.target) ||
         context.inventory.includes(params.hotspot.lockedBy)),
     roomUnlocked: ({ context }, params: { roomId: RoomId }) =>
       context.unlockedRooms.includes(params.roomId),
     canExit: ({ context }, params: { hotspot: DoorHotspot }) =>
+      canInteract(context, params.hotspot) &&
       params.hotspot.target === 'exit' && context.inventory.includes(params.hotspot.lockedBy),
     canCollect: ({ context }, params: { hotspot: ItemHotspot }) =>
       !context.collected.includes(params.hotspot.itemId) && canInteract(context, params.hotspot),

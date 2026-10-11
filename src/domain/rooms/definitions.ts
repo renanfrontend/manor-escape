@@ -94,7 +94,8 @@ export const LIBRARY: Room = {
 export const STUDY: Room = {
   id: 'study',
   name: 'Escritório',
-  description: 'Uma escrivaninha, um cofre embutido na parede e — finalmente — a porta dos fundos.',
+  description:
+    'Uma escrivaninha, um cofre embutido na parede e, se a chave certa girar, algo atrás do painel de carvalho.',
   hotspots: [
     {
       id: 'study-desk',
@@ -114,14 +115,159 @@ export const STUDY: Room = {
       puzzleId: 'safe',
     },
     {
-      id: 'study-exit-door',
+      id: 'study-secret-door',
       kind: 'door',
-      label: 'Porta dos fundos',
-      glyph: '🌙',
-      area: { x: 78, y: 14, w: 14, h: 62 },
-      target: 'exit',
+      label: 'Passagem secreta',
+      glyph: '🕳️',
+      area: { x: 74, y: 14, w: 18, h: 62 },
+      target: 'atelier',
       lockedBy: 'master-key',
-      lockedText: 'Três trancas. Só uma chave mestra abriria todas.',
+      lockedText: 'Um painel de madeira com três trancas. Só uma chave mestra abriria todas.',
+      requires: { puzzleSolved: 'safe' },
+    },
+  ],
+}
+
+export const ATELIER: Room = {
+  id: 'atelier',
+  name: 'Ateliê',
+  description:
+    'Uma oficina escondida atrás do escritório. Esboços presos por tachas, engrenagens, um espelho de mão e o cheiro de óleo de linhaça: Eleanor admirava Leonardo.',
+  hotspots: [
+    {
+      id: 'atelier-board',
+      kind: 'inspect',
+      label: 'Prancha de medidas',
+      glyph: '📐',
+      area: { x: 5, y: 12, w: 24, h: 34 },
+      text:
+        'As proporções do homem, copiadas do mestre:\n• 4 dedos = 1 palma\n• 4 palmas = 1 pé\n• 6 palmas = 1 côvado\n• 24 palmas = a altura de um homem\nNa margem, a letra de Eleanor: "Meça com paciência. A beleza é só aritmética bem-vestida."',
+    },
+    {
+      id: 'atelier-vitruvian',
+      kind: 'puzzle',
+      label: 'Esboço do homem no círculo',
+      glyph: '🎨',
+      area: { x: 5, y: 52, w: 24, h: 32 },
+      puzzleId: 'vitruvian',
+    },
+    {
+      id: 'atelier-codex',
+      kind: 'puzzle',
+      label: 'Caderno espelhado',
+      glyph: '📖',
+      area: { x: 35, y: 58, w: 18, h: 24 },
+      puzzleId: 'mirror',
+    },
+    {
+      id: 'atelier-lanterns',
+      kind: 'puzzle',
+      label: 'Painel de lanternas',
+      glyph: '💡',
+      area: { x: 38, y: 12, w: 24, h: 34 },
+      puzzleId: 'lanterns',
+      requires: { hasItem: 'brass-lens' },
+    },
+    {
+      id: 'atelier-crypt-door',
+      kind: 'door',
+      label: 'Alçapão da cripta',
+      glyph: '🚪',
+      area: { x: 80, y: 16, w: 14, h: 60 },
+      target: 'crypt',
+      lockedBy: 'crypt-key',
+      lockedText: 'Um alçapão de ferro no chão do ateliê, com um cadeado coberto de limo.',
+    },
+  ],
+}
+
+export const CRYPT: Room = {
+  id: 'crypt',
+  name: 'Cripta',
+  description:
+    'Pedra fria, velas de cera preta e um sarcófago com o nome raspado. Alguém gravou uma estrofe na parede, como quem esconde um recado à vista de todos.',
+  hotspots: [
+    {
+      id: 'crypt-poem',
+      kind: 'inspect',
+      label: 'Estrofe na parede',
+      glyph: '📜',
+      area: { x: 5, y: 12, w: 28, h: 42 },
+      text:
+        'Luz que não toca a pedra\nEsconde-se no que é frio;\nGuarda o nome de quem parte,\nA memória é um rio\nDesce sem voltar à fonte:\nO que fica é o que se escreve.\nAbaixo, em letra miúda: "O começo de cada verso é a porta."',
+    },
+    {
+      id: 'crypt-tomb',
+      kind: 'puzzle',
+      label: 'Sarcófago sem nome',
+      glyph: '⚰️',
+      area: { x: 36, y: 46, w: 28, h: 34 },
+      puzzleId: 'tomb',
+    },
+    {
+      id: 'crypt-cryptex',
+      kind: 'puzzle',
+      label: 'Criptex lacrado',
+      glyph: '⚱️',
+      area: { x: 40, y: 8, w: 20, h: 28 },
+      puzzleId: 'cryptex',
+      requires: { hasItem: 'silver-ring' },
+    },
+    {
+      id: 'crypt-stairs',
+      kind: 'door',
+      label: 'Escada em caracol',
+      glyph: '🪜',
+      area: { x: 80, y: 14, w: 14, h: 62 },
+      target: 'observatory',
+      lockedBy: 'observatory-key',
+      lockedText: 'Uma grade de ferro corta a escada. A fechadura é fina como um ponteiro.',
+    },
+  ],
+}
+
+export const OBSERVATORY: Room = {
+  id: 'observatory',
+  name: 'Observatório',
+  description:
+    'No alto da mansão, uma cúpula aberta ao céu. Um astrolábio de bronze, mapas estelares e a certeza de que a saída está logo acima.',
+  hotspots: [
+    {
+      id: 'observatory-spiral',
+      kind: 'inspect',
+      label: 'Concha em espiral',
+      glyph: '🐚',
+      area: { x: 5, y: 14, w: 24, h: 36 },
+      text:
+        'Uma concha de nautilus, e ao lado, riscado a lápis:\n1, 1, 2, 3, 5, 8, 13, 21, …\n"Cada passo carrega o peso dos dois anteriores. O próximo é o que abre o astrolábio."',
+    },
+    {
+      id: 'observatory-astrolabe',
+      kind: 'puzzle',
+      label: 'Astrolábio de bronze',
+      glyph: '🧮',
+      area: { x: 36, y: 14, w: 22, h: 36 },
+      puzzleId: 'fibonacci',
+    },
+    {
+      id: 'observatory-planets',
+      kind: 'puzzle',
+      label: 'Mapa das esferas',
+      glyph: '🪐',
+      area: { x: 8, y: 56, w: 30, h: 28 },
+      puzzleId: 'planets',
+      requires: { hasItem: 'golden-compass' },
+    },
+    {
+      id: 'observatory-exit-door',
+      kind: 'door',
+      label: 'Alçapão do telhado',
+      glyph: '🌙',
+      area: { x: 76, y: 14, w: 18, h: 62 },
+      target: 'exit',
+      lockedBy: 'star-key',
+      lockedText: 'O alçapão para o telhado tem uma fechadura em forma de estrela de oito pontas.',
+      requires: { puzzleSolved: 'fibonacci' },
     },
   ],
 }
@@ -130,6 +276,9 @@ export const ROOMS: Readonly<Record<RoomId, Room>> = {
   foyer: FOYER,
   library: LIBRARY,
   study: STUDY,
+  atelier: ATELIER,
+  crypt: CRYPT,
+  observatory: OBSERVATORY,
 }
 
 export const getRoom = (id: RoomId): Room => ROOMS[id]

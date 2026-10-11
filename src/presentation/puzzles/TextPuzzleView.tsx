@@ -5,6 +5,7 @@ import type { PuzzleViewProps } from './types'
 
 export const TextPuzzleView = ({ puzzle, onSubmit, failed }: PuzzleViewProps<'text'>) => {
   const [answer, setAnswer] = useState('')
+  const [mirrored, setMirrored] = useState(puzzle.variant === 'mirror')
 
   return (
     <form
@@ -13,14 +14,48 @@ export const TextPuzzleView = ({ puzzle, onSubmit, failed }: PuzzleViewProps<'te
         onSubmit(answer)
       }}
     >
-      <blockquote
-        className="rounded-md border border-gold-600/40 bg-parchment-100 p-5 font-display text-2xl tracking-[0.2em] text-ink-900"
-        data-testid="cipher-text"
-      >
-        {puzzle.encoded}
-      </blockquote>
+      {puzzle.variant === 'anagram' ? (
+        <ul
+          className="flex flex-wrap justify-center gap-2 rounded-md border border-gold-600/40 bg-parchment-100 p-5"
+          data-testid="cipher-text"
+          aria-label={`Letras embaralhadas: ${puzzle.encoded.split('').join(' ')}`}
+        >
+          {puzzle.encoded.split('').map((letter, index) => (
+            <li
+              key={`${letter}-${index}`}
+              className="flex size-11 items-center justify-center rounded border border-ink-600 bg-parchment-200 font-display text-2xl text-ink-900"
+            >
+              {letter}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <>
+          <blockquote
+            className={`rounded-md border border-gold-600/40 bg-parchment-100 p-5 font-display text-ink-900 transition-transform duration-500 ${
+              puzzle.variant === 'cipher' ? 'text-2xl tracking-[0.2em]' : 'text-xl'
+            }`}
+            style={{ transform: mirrored ? 'scaleX(-1)' : 'none' }}
+            data-testid="cipher-text"
+            data-mirrored={puzzle.variant === 'mirror' ? mirrored : undefined}
+          >
+            {puzzle.encoded}
+          </blockquote>
+          {puzzle.variant === 'mirror' && (
+            <Button
+              variant="ghost"
+              className="mt-3"
+              aria-pressed={!mirrored}
+              onClick={() => setMirrored((value) => !value)}
+              data-testid="mirror-toggle"
+            >
+              {mirrored ? 'Aproximar o espelho' : 'Afastar o espelho'}
+            </Button>
+          )}
+        </>
+      )}
       <label className="mt-5 block text-xs tracking-widest text-parchment-400 uppercase" htmlFor="cipher-answer">
-        Onde está a chave? (uma palavra)
+        {puzzle.fieldLabel}
       </label>
       <div className="mt-2 flex gap-2">
         <input
@@ -34,10 +69,10 @@ export const TextPuzzleView = ({ puzzle, onSubmit, failed }: PuzzleViewProps<'te
           data-testid="cipher-input"
         />
         <Button type="submit" disabled={answer.trim().length === 0} data-testid="cipher-submit">
-          Procurar
+          {puzzle.submitLabel}
         </Button>
       </div>
-      <FailureNote show={failed} text="Você procura ali e não encontra nada. Releia a carta." />
+      <FailureNote show={failed} text={puzzle.failureText} />
     </form>
   )
 }

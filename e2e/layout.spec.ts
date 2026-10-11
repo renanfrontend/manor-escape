@@ -4,6 +4,9 @@ const ROOMS = [
   { id: 'foyer', name: 'Saguão' },
   { id: 'library', name: 'Biblioteca' },
   { id: 'study', name: 'Escritório' },
+  { id: 'atelier', name: 'Ateliê' },
+  { id: 'crypt', name: 'Cripta' },
+  { id: 'observatory', name: 'Observatório' },
 ] as const
 
 const VIEWPORTS = [
@@ -30,11 +33,11 @@ for (const viewport of VIEWPORTS) {
     await page.setViewportSize(viewport)
     // Unlock every room in the saved run so the HUD can visit them without solving the puzzles.
     await page.addInitScript(() => {
-      const key = 'manor-escape:game-snapshot'
+      const key = 'manor-escape:game-snapshot-v2'
       const saved = localStorage.getItem(key)
       if (!saved) return
       const snapshot = JSON.parse(saved)
-      snapshot.context.unlockedRooms = ['foyer', 'library', 'study']
+      snapshot.context.unlockedRooms = ['foyer', 'library', 'study', 'atelier', 'crypt', 'observatory']
       localStorage.setItem(key, JSON.stringify(snapshot))
     })
     await page.goto('/')

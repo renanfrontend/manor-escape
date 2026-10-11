@@ -4,7 +4,8 @@ import type { Snapshot } from 'xstate'
 import type { KeyValueStorage } from '@/application/ports/storage'
 import { gameMachine } from './gameMachine'
 
-const SNAPSHOT_KEY = 'game-snapshot'
+/** Bumped when the world grew from 3 rooms to 6: older saves would point at rooms and puzzles that changed. */
+const SNAPSHOT_KEY = 'game-snapshot-v2'
 
 export const GameActorContext = createActorContext(gameMachine)
 

@@ -11,6 +11,9 @@ const PALETTES: Record<RoomId, Palette> = {
   foyer: { wall: '#3a1f24', wallDark: '#22121a', floor: '#2b1a12', accent: '#7a1f2b' },
   library: { wall: '#1f2a26', wallDark: '#121a17', floor: '#26170f', accent: '#5b6b3a' },
   study: { wall: '#2a2333', wallDark: '#17131f', floor: '#1e1512', accent: '#4a3a5c' },
+  atelier: { wall: '#33281a', wallDark: '#1d160d', floor: '#2a2016', accent: '#b8893b' },
+  crypt: { wall: '#23262b', wallDark: '#121417', floor: '#17181b', accent: '#6b7280' },
+  observatory: { wall: '#16233a', wallDark: '#0b1424', floor: '#1b1713', accent: '#5b8cc7' },
 }
 
 /** Decorative SVG stage: damask wallpaper, wainscot, floorboards and a candle-lit vignette. */

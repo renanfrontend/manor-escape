@@ -55,10 +55,10 @@ test.describe('Manor Escape', () => {
     await page.getByTestId('clock-submit').click()
     await expect(page.getByTestId('puzzle-failed')).toBeVisible()
 
-    await expect(page.getByTestId('hints-left')).toContainText('3')
+    await expect(page.getByTestId('hints-left')).toContainText('5')
     await page.getByTestId('use-hint').click()
-    await expect(page.getByTestId('hints-left')).toContainText('2')
-    await expect(page.getByTestId('timer')).not.toHaveText('30:00')
+    await expect(page.getByTestId('hints-left')).toContainText('4')
+    await expect(page.getByTestId('timer')).not.toHaveText('45:00')
   })
 
   test('locked doors stay locked', async ({ page }) => {
@@ -68,7 +68,7 @@ test.describe('Manor Escape', () => {
   })
 
   test('full escape', async ({ page }) => {
-    test.setTimeout(90_000)
+    test.setTimeout(120_000)
     // Saguão
     await page.getByTestId('hotspot-foyer-vase').click()
     await expect(page.getByTestId('item-crumpled-note')).toBeVisible()
@@ -117,7 +117,71 @@ test.describe('Manor Escape', () => {
     await expect(page.getByTestId('puzzle-solved')).toBeVisible()
     await page.getByTestId('puzzle-continue').click()
 
-    await page.getByTestId('hotspot-study-exit-door').click()
+    await page.getByTestId('hotspot-study-secret-door').click()
+    await expect(page.getByTestId('room-atelier')).toBeVisible()
+
+    // Ateliê: Da Vinci
+    await page.getByTestId('hotspot-atelier-board').click()
+    await expect(page.getByTestId('inspect-modal')).toContainText('24 palmas')
+    await page.keyboard.press('Escape')
+    await page.getByTestId('hotspot-atelier-vitruvian').click()
+    await page.getByTestId('cipher-input').fill('96')
+    await page.getByTestId('cipher-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+
+    await page.getByTestId('hotspot-atelier-codex').click()
+    await expect(page.getByTestId('cipher-text')).toHaveAttribute('data-mirrored', 'true')
+    await page.getByTestId('mirror-toggle').click()
+    await page.getByTestId('cipher-input').fill('clepsidra')
+    await page.getByTestId('cipher-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+
+    await page.getByTestId('hotspot-atelier-lanterns').click()
+    for (const cell of [1, 3, 5, 6]) await page.getByTestId(`lantern-${cell}`).click()
+    await page.getByTestId('lanterns-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+    await page.getByTestId('hotspot-atelier-crypt-door').click()
+    await expect(page.getByTestId('room-crypt')).toBeVisible()
+
+    // Cripta: anagrama e criptex
+    await page.getByTestId('hotspot-crypt-tomb').click()
+    await page.getByTestId('cipher-input').fill('Eleanor')
+    await page.getByTestId('cipher-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+
+    await page.getByTestId('hotspot-crypt-cryptex').click()
+    for (const [wheel, letter] of [...'LEGADO'].entries()) {
+      const target = letter.charCodeAt(0) - 65
+      for (let i = 0; i < target; i += 1) await page.getByTestId(`cryptex-up-${wheel}`).click()
+    }
+    await page.getByTestId('cryptex-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+    await page.getByTestId('hotspot-crypt-stairs').click()
+    await expect(page.getByTestId('room-observatory')).toBeVisible()
+
+    // Observatório: o exit só abre depois do astrolábio
+    await page.getByTestId('hotspot-observatory-exit-door').click()
+    await expect(page.getByTestId('room-observatory')).toBeVisible()
+    await page.getByTestId('hotspot-observatory-planets').click()
+    // Ordem inicial: Marte, Júpiter, Mercúrio, Terra, Vênus.
+    for (const [id, times] of [['mercury', 2], ['venus', 3], ['earth', 2]] as const) {
+      for (let i = 0; i < times; i += 1) await page.getByTestId(`book-${id}-left`).click()
+    }
+    await page.getByTestId('sequence-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+    await page.getByTestId('hotspot-observatory-astrolabe').click()
+    await dialTo(page, 3)
+    await dialTo(page, 4)
+    await page.getByTestId('safe-submit').click()
+    await expect(page.getByTestId('puzzle-solved')).toBeVisible()
+    await page.getByTestId('puzzle-continue').click()
+    await page.getByTestId('hotspot-observatory-exit-door').click()
     await expect(page.getByTestId('end-won')).toBeVisible()
   })
 

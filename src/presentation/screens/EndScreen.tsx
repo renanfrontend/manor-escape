@@ -36,7 +36,7 @@ export const EndScreen = ({ outcome }: EndScreenProps) => {
       </h1>
       <p className="mt-6 max-w-lg font-display text-xl text-parchment-400">
         {won
-          ? `A porta dos fundos range e o ar frio o recebe. Fuga concluída em ${formatSeconds(elapsed)} com ${hintsUsed} ${hintsUsed === 1 ? 'dica' : 'dicas'}.`
+          ? `O alçapão do telhado range e o ar frio da madrugada o recebe, sob as estrelas que Eleanor tanto estudou. Fuga concluída em ${formatSeconds(elapsed)} com ${hintsUsed} ${hintsUsed === 1 ? 'dica' : 'dicas'}.`
           : 'As trancas se fecharam de vez. Talvez, numa próxima vida, o relógio volte a andar.'}
       </p>
       <Button className="mt-10 px-8 py-3 text-base" onClick={() => actor.send({ type: 'RESET' })}>
