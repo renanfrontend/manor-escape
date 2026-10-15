@@ -20,7 +20,7 @@
     "@capacitor/core": "^8.5.3",
     "@react-three/fiber": "^9.8.1",
     "@xstate/react": "^6.1.0",
-    "framer-motion": "^13.5.0",
+    "framer-motion": "^14.0.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "three": "^0.186.1",
